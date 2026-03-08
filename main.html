@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<!-- font awesome  -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="stylesheet" href="./style.css">
+</head>
+<body class="">
+    <!-- navber  -->
+<div class="navbar py-4 px-16 flex justify-between bg-base-100 shadow-sm">
+  <div class="flex items-center">
+    <img src="./B13-A5-Github-Issue-Tracker/assets/github-logo.png" alt="" class="w-9">
+    <a class="btn btn-ghost text-xl">GitHub Issues Tracker</a>
+  </div>
+  <div class="flex items-center gap-10">
+    <div class="">
+        <i class="fa-solid fa-magnifying-glass"></i>
+   <input type="text" placeholder="Search issues..." class="input input-bordered w-24 md:w-auto" />
+    </div>
+   
+
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+       <button class="btn btn-primary">New Issue</button>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="mt-15 ">
+    <!-- all open close btn  -->
+    <div class="w-[80%] p-8 rounded mx-auto">
+<button class="btn btn-primary">All</button>
+<button class="btn btn-primary">Open</button>
+<button class="btn btn-primary">Close</button>
+    </div>
+<!-- issue body  -->
+    <div class="w-11/12  p-2 gap-1 rounded mx-auto">
+        <!-- first part  -->
+<div class="flex justify-between">
+<div class="flex">
+    <img src="./assets/Aperture.png" alt="">
+    <div>
+        <h2>50 Issues</h2>
+        <p>Track and manage your project issues</p>
+    </div>
+</div>
+<div class="flex gap-4">
+    <p></p>
+   <p>Open</p>
+   <p></p>
+   <p>Close</p>
+</div>
+</div>
+
+ <!-- api bosbe  -->
+ <div id="cetagory-container" class="grid grid-cols-4 rounded-2xl space-x-2 gap-10 bg-amber-100">
+    </div>
+
+</div>
+
+</main>
+
+
+<script src="./script.js"></script>
+</body>
+</html>
