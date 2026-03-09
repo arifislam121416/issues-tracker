@@ -1,3 +1,7 @@
+
+const idModal = document.getElementById("issues_modal_5");
+
+
 function logingBtn() {
 const userName =document.querySelector("#username").value;
 const password = document.querySelector("#password").value;
@@ -9,56 +13,79 @@ if(userName === "admin" && password === "admin123"){
 
 }
 
-
+let allIssuesData = [];
 async function allIssue() {
     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
 const data = await res.json();
-displayIssues(data.data);
+allIssuesData = data.data;
+displayIssues(allIssuesData);
+updateCount(allIssuesData);
+}
+async function showIssueModal(id){
+  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+  const data = await res.json();
+  const issue = data.data;
+
+  document.getElementById("modal-title").innerText = issue.title;
+  document.getElementById("modal-desc").innerText = issue.description;
+
+  document.getElementById("modal-info").innerHTML = `
+    <p><strong>ID:</strong> #${issue.id}</p>
+    <p><strong>Author:</strong> ${issue.author}</p>
+    <p><strong>Assignee:</strong> ${issue.assignee}</p>
+    <p><strong>Status:</strong> 
+      <span class="badge ${issue.status === "open" ? "badge-success" : "badge-error"}">
+        ${issue.status}
+      </span>
+    </p>
+    <p><strong>Priority:</strong> 
+      <span class="badge badge-warning">${issue.priority}</span>
+    </p>
+    <p><strong>Updated:</strong> ${new Date(issue.updatedAt).toLocaleDateString()}</p>
+  `;
+
+  idModal.showModal();
 }
 
+async function newIssueBtn() {
+  const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}")
+  const data = await res.json()
+  Date.data
+}
+const searchInput = document.querySelector('input[placeholder="Search issues..."]');
 
-// function displayIssues(issues) {
-//   const container = document.getElementById("cetagory-container");
-//   container.innerHTML ="";
-//     issues.forEach(issue => {
-//         const labelsHTML = issue.labels.map(label => {
-// return `
-// <p class="badge badge-outline badge-error">
-// <i class="fa-solid fa-bug"></i> ${label}
-// </p>
-// `;
-// }).join("");
-//        const div = document.createElement("div");
-//        div.className = "";
-//        div.innerHTML =`
- 
-//         <div class="card1 rounded-2xl w-70 h-70 p-2 border shadow-2xl space-y-4  bg-[#FFFFFF]">
-//     <div class=" ">
-// <div class="flex justify-between">
-//     <p></p>
-//     <button class="bg-green-200 p-2 rounded-2xl">${issue.priority}</button>
-// </div>
-// <div class="">
-//     <h1 class="font-semibold text-[14px] line-clamp-1 text-[#1F2937]">${issue.title}</h1>
-//     <p class="text-[14px] line-clamp-2 text-[#64748B]">${issue.description}</p>
+searchInput.addEventListener('input', (e) => {
+    const searchText = e.target.value.toLowerCase();
 
-// </div>
-// <div class="flex mt-2">
-//    <p class="badge badge-outline badge-success"><i class="fa-solid fa-bug"></i>${labelsHTML}</p>
-  
-// </div>
-//         </div>
-//         <hr class="text-gray-400">
-//         <div class="">
-// <p>Assignee: ${issue.assignee}</p>
-// <p>Author: ${issue.author}</p>
-// <p>${new Date(issue.updatedAt).toLocaleDateString()}</p>
-//         </div>
-//      </div> 
-//        `;
-//     container.appendChild(div)
-//     });
-// }
+    const filteredIssues = allIssuesData.filter(issue => 
+        issue.title.toLowerCase().includes(searchText) ||
+        issue.description.toLowerCase().includes(searchText) ||
+        issue.labels.some(label => label.toLowerCase().includes(searchText))
+    );
+    displayIssues(filteredIssues);
+    updateCount(filteredIssues);
+});
+
+const issuesClickBtn = (btns,btn) => {
+  const buttons = document.querySelectorAll(".filter-btn");
+
+buttons.forEach(button =>{
+button.classList.remove("btn-primary");
+button.classList.add("btn-secondary");
+});
+btn.classList.remove("btn-secondary");
+btn.classList.add("btn-primary");
+
+  if(btns === "all"){
+   displayIssues(allIssuesData);
+  } else if(btns ==="open"){
+    const openIssues = allIssuesData.filter(issue => issue.status === "open");
+    displayIssues(openIssues);
+  }else if(btns === "close"){
+const closeIssues = allIssuesData.filter(issue => issue.status === "close");
+displayIssues(closeIssues);
+  }
+}
 
 function displayIssues(issues) {
 const container = document.getElementById("cetagory-container");
@@ -108,8 +135,7 @@ ${label}
 const div = document.createElement("div");
 
 div.innerHTML = `
-<div class="rounded w-[270px] h-[270px] p-2   shadow-2xs bg-white space-y-4">
-
+<div onclick="showIssueModal(${issue.id})" class="rounded w-[270px] h-[270px] p-2 shadow-2xs bg-white space-y-4 cursor-pointer">
 <div class="flex justify-between">
 <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
 <i class="fa-solid fa-circle-notch text-green-600"></i>
@@ -146,4 +172,20 @@ container.appendChild(div);
 
 });
 }
+function updateCount(issues){
+ document.querySelector("h2").innerText = `${issues.length} Issues`;
+}
+
+async function showIssueModal(id){
+  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+  const data = await res.json();
+  const issue = data.data;
+
+  document.getElementById("modal-title").innerText = issue.title;
+  document.getElementById("modal-desc").innerText = issue.description;
+
+  
+  idModal.showModal();
+}
 allIssue()
+

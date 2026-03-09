@@ -32,7 +32,7 @@
 
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-       <button class="btn btn-primary">New Issue</button>
+       <button id="new-issue-btn" onclick="newIssueBtn()" class="btn btn-primary">New Issue</button>
       </div>
     </div>
   </div>
@@ -40,9 +40,9 @@
 <main class="mt-15 ">
     <!-- all open close btn  -->
     <div class="w-11/12 p-8 rounded mx-auto">
-<button class="btn btn-primary">All</button>
-<button class="btn btn-primary">Open</button>
-<button class="btn btn-primary">Close</button>
+<button onclick="issuesClickBtn('all',this)" id="all" class="filter-btn all btn btn-primary">All</button>
+<button onclick="issuesClickBtn('open',this)" id="open" class="filter-btn open btn btn-secondary">Open</button>
+<button onclick="issuesClickBtn('close',this)" id="close" class="filter-btn close btn btn-secondary">Close</button>
     </div>
 <!-- issue body  -->
     <div class="w-11/12  p-2 gap-1 rounded mx-auto">
@@ -63,12 +63,41 @@
 </div>
 </div>
 
- <!-- api bosbe  -->
  <div id="cetagory-container" class="grid grid-cols-4 mx-auto space-x-2 rounded  gap-5 bg-amber-100">
     </div>
 
 </div>
 
+<button class="btn" onclick="issues_modal_5.showModal()">open modal</button>
+<dialog id="issues_modal_5" class="modal">
+  <div class="modal-box max-w-2xl">
+    <h2 id="modal-title" class="text-2xl font-bold mb-2">Fix broken image uploads</h2>
+    <div class="flex items-center gap-3 text-sm text-gray-500 mb-4">
+      <span id="modal-status" class="badge badge-success">Opened</span>
+      <span id="modal-author">Opened by Fahim Ahmed</span>
+      <span id="modal-date">22/02/2026</span>
+    </div>
+    <div id="modal-labels" class="flex gap-2 mb-4">help wanted</div>
+    <p id="modal-desc" class="text-gray-600 mb-6">The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.</p>
+    <div class="bg-gray-100 p-4 rounded-lg flex justify-between">
+      <div>
+        <p class="text-gray-500">Assignee:</p>
+        <p id="modal-assignee" class="font-semibold">Fahim Ahmed</p>
+      </div>
+      <div>
+        <p class="text-gray-500">Priority:</p>
+        <span id="modal-priority" class="badge">High</span>
+      </div>
+    </div>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-primary">Close</button>
+      </form>
+    </div>
+
+  </div>
+</dialog>
+ 
 </main>
 
 
