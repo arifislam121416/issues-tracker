@@ -21,31 +21,6 @@ allIssuesData = data.data;
 displayIssues(allIssuesData);
 updateCount(allIssuesData);
 }
-async function showIssueModal(id){
-  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
-  const data = await res.json();
-  const issue = data.data;
-
-  document.getElementById("modal-title").innerText = issue.title;
-  document.getElementById("modal-desc").innerText = issue.description;
-
-  document.getElementById("modal-info").innerHTML = `
-    <p><strong>ID:</strong> #${issue.id}</p>
-    <p><strong>Author:</strong> ${issue.author}</p>
-    <p><strong>Assignee:</strong> ${issue.assignee}</p>
-    <p><strong>Status:</strong> 
-      <span class="badge ${issue.status === "open" ? "badge-success" : "badge-error"}">
-        ${issue.status}
-      </span>
-    </p>
-    <p><strong>Priority:</strong> 
-      <span class="badge badge-warning">${issue.priority}</span>
-    </p>
-    <p><strong>Updated:</strong> ${new Date(issue.updatedAt).toLocaleDateString()}</p>
-  `;
-
-  idModal.showModal();
-}
 
 async function newIssueBtn() {
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}")
