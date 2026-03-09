@@ -14,3 +14,10 @@ Ans:-
 -Filter:- Returns a new array with elements tha match a condition.
 -ForEach:- Executes a fuction for each element but dose not return a new array.
 
+4.Whate is an arrow function?
+Ans:-
+An arrow function is a shorter syntax for writing function in javascript introduced es6.
+ 
+ 5.Whate are template literals?
+ Ans:-
+ Templete literals are string writing with backticks ( ``) that allow embedded variables and expressions using ${}.
